@@ -64,7 +64,10 @@ def distorted_plot(rate, vols, min_val, max_val, steps):
 
     for k in range(n_plots):
         for m in range(1, steps):
-            random_shock = np.random.normal(0, vols[k] * np.sqrt(step), 1)
+            if (vols[k] <= 0. ):
+                random_shock = 0.
+            else:
+                random_shock = np.random.normal(0, vols[k] * np.sqrt(step), 1)
             y_ax[k][m] = y_ax[k][m-1] * (1. + rate * step + random_shock)
 
     mp = pu.MultiPlot('Compounding Account Value With Noise', 'x', 'Value')
@@ -77,7 +80,7 @@ if __name__ == '__main__':
     min_val = 0.
     max_val = 10.
     steps = 100
-    compounding_plot(rate, freq, min_val, max_val, steps)
+ #   compounding_plot(rate, freq, min_val, max_val, steps)
 
     rate = 0.1
 #    vols = [0., 0.01, 0.05, 0.1]
@@ -86,5 +89,5 @@ if __name__ == '__main__':
     min_val = 0.
     max_val = 10.
     steps = 1000
-#    distorted_plot(rate, vols, min_val, max_val, steps)
+    distorted_plot(rate, vols, min_val, max_val, steps)
 
