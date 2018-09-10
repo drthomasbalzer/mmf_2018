@@ -1,12 +1,12 @@
+################
+## Author: Thomas Balzer
+## (c) 2018
+## Material for MMF Stochastic Analysis - Fall 2018
+################
+
 import matplotlib.pyplot as plt
 
-###############
-##
-##  utility to plot multiple graphs at once
-##
-###############
-
-class MultiPlot():
+class PlotUtilities():
 
     def __init__(self, title, x_label, y_label):
 
@@ -14,7 +14,29 @@ class MultiPlot():
         self.x_label = x_label
         self.y_label = y_label
 
-    def plot(self, x_ax, y_ax):
+    ###############
+    ##
+    ##  utility to plot histogram
+    ##
+    ###############
+
+    def plotHistogram(self, sample_data, num_bins):
+
+        plt.hist(sample_data, num_bins, normed=True, facecolor='green', alpha=0.75)
+
+        plt.xlabel(self.x_label)
+        plt.ylabel(self.y_label)
+        plt.title(self.title)
+
+        plt.show()
+
+    ###############
+    ##
+    ##  utility to plot multiple graphs at once
+    ##
+    ###############
+
+    def multiPlot(self, x_ax, y_ax):
 
         #######
         ## sizing of axis

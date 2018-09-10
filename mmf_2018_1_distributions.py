@@ -1,3 +1,10 @@
+################
+## Author: Thomas Balzer
+## (c) 2018
+## Material for MMF Stochastic Analysis - Fall 2018
+################
+
+
 import plot_utilities as pu
 import core_math_utilities as dist
 
@@ -26,8 +33,8 @@ def plotMultiDistributions(distrib, min_val, max_val, steps):
             for k in range(steps):
                 y_ax[j][k] = distrib[j].pdf(x_ax[k])
 
-        mp = pu.MultiPlot('Probability Density Functions', 'x', 'PDF Value')
-        mp.plot(x_ax, y_ax)
+        mp = pu.PlotUtilities('Probability Density Functions', 'x', 'PDF Value')
+        mp.multiPlot(x_ax, y_ax)
 
 if __name__ == '__main__':
 

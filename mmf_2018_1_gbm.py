@@ -1,3 +1,9 @@
+################
+## Author: Thomas Balzer
+## (c) 2018
+## Material for MMF Stochastic Analysis - Fall 2018
+################
+
 import numpy as np
 import plot_utilities as pu
 
@@ -37,8 +43,8 @@ def compounding_plot(rate, freq, min_val, max_val, steps):
 
         y_ax[k] = np.interp(x_ax, x_temp, y_temp)
 
-    mp = pu.MultiPlot('Compounding Account Value', 'x', 'Value')
-    mp.plot(x_ax, y_ax)
+    mp = pu.PlotUtilities('Compounding Account Value', 'x', 'Value')
+    mp.multiPlot(x_ax, y_ax)
 
 ###############
 ##
@@ -70,8 +76,8 @@ def distorted_plot(rate, vols, min_val, max_val, steps):
                 random_shock = np.random.normal(0, vols[k] * np.sqrt(step), 1)
             y_ax[k][m] = y_ax[k][m-1] * (1. + rate * step + random_shock)
 
-    mp = pu.MultiPlot('Compounding Account Value With Noise', 'x', 'Value')
-    mp.plot(x_ax, y_ax)
+    mp = pu.PlotUtilities('Compounding Account Value With Noise', 'x', 'Value')
+    mp.multiPlot(x_ax, y_ax)
 
 if __name__ == '__main__':
 
