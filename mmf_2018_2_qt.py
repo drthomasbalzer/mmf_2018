@@ -40,7 +40,7 @@ def binomial_histogram(p, sz):
     #######
     ### transform the uniform sample
     #######
-    sample = range(sz)
+    sample = [0.] * sz
     for j in range(sz):
         sample[j] = dist.binomial_inverse_cdf(p,uni_sample[j])
 
@@ -64,7 +64,7 @@ def exponential_histogram(_lambda, sz):
     #######
     ### transform the uniform sample
     #######
-    sample = range(sz)
+    sample = [0.] * sz
     for j in range(sz):
         sample[j] = dist.exponential_inverse_cdf(_lambda,uni_sample[j])
 
@@ -77,7 +77,7 @@ def exponential_histogram(_lambda, sz):
     plt.ylabel('Rel. Occurrence')
     plt.title("Histogram of Exponential Sample with Parameter={0}".format(_lambda))
 
-    y = range(0,num_bins+1)
+    y = [0.] * (num_bins+1)
     ###### overlay the actual pdf
     for i in range(0,num_bins+1):
          y[i] = dist.exponential_pdf(_lambda, bins[i])

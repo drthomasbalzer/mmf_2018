@@ -32,11 +32,36 @@ class PlotUtilities():
 
     ###############
     ##
+    ##  utility to plot multiple histograms
+    ##
+    ###############
+
+    def plotMultiHistogram(self, samples, num_bins, colors = 'None'):
+
+        n_plots = len(samples)
+
+        base_alpha = 0.55
+        for k in range(n_plots):
+            # the histogram of the data
+            _thisAlpha = base_alpha + 0.25 * float(k)
+            if (colors == 'None'):
+                plt.hist(samples[k], num_bins, normed=True, facecolor='blue', alpha=_thisAlpha)
+            else:
+                plt.hist(samples[k], num_bins, normed=True, facecolor=colors[k], alpha=_thisAlpha)
+
+        plt.xlabel(self.x_label)
+        plt.ylabel(self.y_label)
+        plt.title(self.title)
+
+        plt.show()
+
+    ###############
+    ##
     ##  utility to plot multiple graphs at once
     ##
     ###############
 
-    def multiPlot(self, x_ax, y_ax):
+    def multiPlot(self, x_ax, y_ax, arg = ''):
 
         #######
         ## sizing of axis
@@ -60,7 +85,7 @@ class PlotUtilities():
         ## actual plotting
         ########
         for k in range(n_plots):
-            plt.plot(x_ax, y_ax[k])
+            plt.plot(x_ax, y_ax[k], arg)
 
         plt.show()
 

@@ -54,7 +54,7 @@ def moment_matching(p, sz_basket):
         #######
         ### transform the uniform sample
         #######
-        sample = range(sz_basket)
+        sample = [0.] * sz_basket
         for j in range(sz_basket):
             sample[j] = dist.symmetric_binomial_inverse_cdf(p, uni_sample[j])
 
