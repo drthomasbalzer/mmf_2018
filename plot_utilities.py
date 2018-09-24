@@ -20,13 +20,39 @@ class PlotUtilities():
     ##
     ###############
 
-    def plotHistogram(self, sample_data, num_bins):
+    def plotHistogram(self, sample_data, num_bins, labels = 'None', _alpha = 1.):
 
-        plt.hist(sample_data, num_bins, normed=True, facecolor='green', alpha=0.75)
+        plt.hist(sample_data, num_bins, normed=True, label=labels, alpha=_alpha)
 
         plt.xlabel(self.x_label)
         plt.ylabel(self.y_label)
+        if (labels != 'None'):
+            plt.legend(prop={'size': 9})
         plt.title(self.title)
+
+        plt.show()
+
+    ###############
+    ##
+    ##  utility to plot multiple histograms
+    ##
+    ###############
+
+    def plotSubHistograms(self, sample_data, num_bins, labels = 'None', _alpha = 1.):
+
+        plt.xlabel(self.x_label)
+        plt.ylabel(self.y_label)
+
+        n_plots = len(sample_data)
+
+        for k in range(n_plots):
+            plt.subplot(n_plots, 1, k+1)
+            _thisLabel = 'None'
+            if (labels != 'None'):
+                _thisLabel = labels[k]
+                plt.legend(prop={'size': 9})
+            plt.title('Histogram With Parameter={0}'.format(_thisLabel))
+            plt.hist(sample_data[k], num_bins, normed=True, alpha=_alpha)
 
         plt.show()
 

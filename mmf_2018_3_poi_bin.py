@@ -28,7 +28,7 @@ def comparison_poi_binom(lam, upper_bound):
     mp = pu.PlotUtilities("Poisson Vs Binomial distribution for lambda={0}".format(lam), "# Successes", "Probability")
     mp.multiPlot(x_ax, y_ax, '*')
 
-    print check_sum
+    print (check_sum)
 
 def poisson_plot(lam, upper_bound):
 
@@ -57,7 +57,7 @@ def binomial_plot(p, n):
     mp = pu.PlotUtilities("Binomial Distribution for p={0}".format(p), "# Successes", "Probability")
     mp.multiPlot(x_ax, y_ax, 'o')
 
-    print check_sum
+    print (check_sum)
 
 #####
 ## Create distribution via Quantile Transform -- $B(n,p)$- vs $Poi(\lambda)$-distribution
@@ -76,11 +76,11 @@ def bin_vs_poisson_histogram(_lambda, n, sz):
     #######
     ### transform the uniform sample
     #######
-    sample = range(total_sample_size)
+    sample = [0.] * total_sample_size
     for j in range(total_sample_size):
         sample[j] = dist.binomial_inverse_cdf(p,uni_sample[j])
 
-    outcome_bnp = [0]* sz
+    outcome_bnp = [0.] * sz
     index = 0
     for k in range(sz):
         for l in range(n):

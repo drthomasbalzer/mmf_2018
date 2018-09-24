@@ -68,9 +68,9 @@ def binomial_lln_hist(sample_size, repeats, p):
     upper_bound = 1.
 
     plotCLN = True
-    sample_value = range(repeats)
+    sample_value = [0.] * repeats
 
-    for i in sample_value:
+    for i in range(repeats):
 
         ## Step 1 - create sample of independent uniform random variables
 
@@ -108,7 +108,7 @@ def binomial_lln_hist(sample_size, repeats, p):
     ###### overlay the actual normal distribution
     if plotCLN:
 
-        y = range(0,num_bins+1)
+        y = [0.] * (num_bins+1)
         for m in range(0,num_bins+1):
              y[m] = dist.standard_normal_pdf(bins[m])
 
