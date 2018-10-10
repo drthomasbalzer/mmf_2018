@@ -72,8 +72,8 @@ def exponential_importance_sampling(_lambda, shift, strike, digitalPayout=True):
     ### this is the exact result
     p = np.exp(-strike * _lambda)
 
-    print np.var(sample_post_is[0])
-    print np.var(sample_post_is[1])
+    print (np.var(sample_post_is[0]))
+    print (np.var(sample_post_is[1]))
 
     colors = ['green', 'blue']
     _title = "Option Payout with and w/o I.S."
