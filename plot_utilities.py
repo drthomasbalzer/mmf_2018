@@ -114,13 +114,23 @@ class PlotUtilities():
             t_min = min(t_min, min(y_ax[k]))
             t_max = max(t_max, max(y_ax[k]))
 
+        if (t_min < 0):
+            t_min = t_min * 1.1
+        else:
+            t_min = t_min * 0.9
+
+        if (t_max < 0):
+            t_max = t_max * 0.9
+        else:
+            t_max = t_max * 1.1
+
         ########
         ## some basic formatting
         ########
         plt.xlabel(self.x_label)
         plt.ylabel(self.y_label)
         plt.title(self.title)
-        plt.axis([min(x_ax), max(x_ax), 0.9 * t_min, 1.1 * t_max])
+        plt.axis([min(x_ax), max(x_ax), t_min, t_max])
 
         ########
         ## actual plotting
