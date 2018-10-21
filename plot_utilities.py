@@ -84,7 +84,7 @@ class PlotUtilities():
         base_alpha = 0.55
         for k in range(n_plots):
             # the histogram of the data
-            _thisAlpha = base_alpha + 0.25 * float(k)
+            _thisAlpha = base_alpha + 0.10 * float(k)
             if (colors == 'None'):
                 plt.hist(samples[k], num_bins, normed=True, facecolor='blue', alpha=_thisAlpha)
             else:
