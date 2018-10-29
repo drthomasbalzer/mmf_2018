@@ -81,6 +81,6 @@ def plot_transition_probability(calculationOption):
 
 if __name__ == '__main__':
 
-    plot_transition_probability()
+    plot_transition_probability(0)
 
 
