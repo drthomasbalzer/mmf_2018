@@ -56,7 +56,7 @@ def stochastic_integral_hist(_steps, _paths, scaling):
 
     num_bins = 50
 
-    show_non_si = True
+    show_non_si = False
 
     mp = pu.PlotUtilities('Stochastic Integral $\int_0^t B(u) dB(u)$ for 2 approximations', 'Outcome',
                           'Rel. Occurrence')
@@ -76,9 +76,9 @@ def stochastic_integral_hist(_steps, _paths, scaling):
 
 
 
-    if show_non_si:
-        plt.hist(output_rhs_non_si, num_bins, normed=True, facecolor='#0059ff', alpha=0.5)
-        plt.hist(output_lhs_non_si, num_bins, normed=True, facecolor='#ff9772', alpha=0.75)
+    # if show_non_si:
+    #     plt.hist(output_rhs_non_si, num_bins, normed=True, facecolor='#0059ff', alpha=0.5)
+    #     plt.hist(output_lhs_non_si, num_bins, normed=True, facecolor='#ff9772', alpha=0.75)
 
 
 

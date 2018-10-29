@@ -32,37 +32,41 @@ def second_moment(_mean, _variance):
     return _mean * _mean + _variance
 
 
-def plot_transition_probability():
-    ### set up proportions of the figure
-    fig = plt.figure(figsize=plt.figaspect(0.6))
+def plot_transition_probability(calculationOption):
 
     # set up the axes for the first plot
-    ax = fig.gca(projection='3d')
     z_lim = 1.0
-    ### set up x, y values and populate function values
-    calculateOption = True
-    isDigital = True
-    calculateSquare = False
-    if calculateOption:
-        ##### calculation for option struck at zero
-        X = np.arange(0.05, 3, 0.1)
-        Y = np.arange(-2, 2, 0.1)
-        X, Y = np.meshgrid(X, Y)
-        if isDigital:
-            Z = excess_probability_payoff(-0.5, Y, X)
-        else:
-            Z = expected_positive_exposure(Y, X)
-    else:
-        ##### calculation for option struck at zero
+
+    ## preparation of charts
+    if (calculationOption == 0 or calculationOption == 1):
         X = np.arange(0.1, 3, 0.2)
         Y = np.arange(-3, 3, 0.1)
-        X, Y = np.meshgrid(X, Y)
-        if calculateSquare:
-            Z = second_moment(Y, X)
-            z_lim = 10
-        else:
-            Z = transition_density(0, Y, X)
+    elif (calculationOption == 2 or calculationOption == 3):
+        X = np.arange(0.05, 3, 0.1)
+        Y = np.arange(-2, 2, 0.1)
 
+    X, Y = np.meshgrid(X, Y)
+
+    ### set up x, y values and populate function values
+    ## calculation options
+    ## 0 - transition probability
+    ## 1 - second moment
+    ## 2 - excess probability (digital option payout)
+    ## 3 - expected positive exposure
+
+    if (calculationOption == 0):
+        Z = transition_density(0, Y, X)
+    elif (calculationOption == 1):
+        Z = second_moment(Y, X)
+        z_lim = 10
+    elif (calculationOption == 2):
+        Z = excess_probability_payoff(-0.5, Y, X)
+    elif (calculationOption == 3):
+        Z = expected_positive_exposure(Y, X)
+
+    ### set up proportions of the figure
+    fig = plt.figure(figsize=plt.figaspect(0.6))
+    ax = fig.gca(projection='3d')
     surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
                            linewidth=0, antialiased=True)
 
@@ -76,6 +80,7 @@ def plot_transition_probability():
 
 
 if __name__ == '__main__':
+
     plot_transition_probability()
 
 
