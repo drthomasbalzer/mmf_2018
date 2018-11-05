@@ -34,31 +34,23 @@ class Function1D():
    def f_xx(self, _x):
        return 0.
 
-class identityFunction(Function1D):
-
-   def value(self, _x):
-     return _x
-
-   def f_x(self, _x):
-     return 1.
-
-   def f_xx(self, _x):
-     return 0.
-
 ########
-## -- F(t,x) = x^2
+## -- F(t,x) = x^{\alpha}
 ########
 
-class squareFunction(Function1D):
+class genericMonomial(Function1D):
 
-   def value(self, _x):
-       return _x * _x
+    def __init__(self, _alpha):
+        self.alpha = _alpha
 
-   def f_x(self, _x):
-       return 2 * _x
+    def value(self, _x):
+        return np.power(_x, self.alpha)
 
-   def f_xx(self, _x):
-       return 2.
+    def f_x(self, _x):
+        return self.alpha * np.power(_x, self.alpha - 1)
+
+    def f_xx(self, _x):
+        return self.alpha * (self.alpha - 1) * np.power(_x, self.alpha - 2)
 
 ########
 ## -- F(t,x) = \exp(x)
@@ -129,10 +121,6 @@ class itoProcessStandard(itoProcess):
 
 
 def plot_ito_process(_maxTime, _timestep, _number_paths, itoPr, funct):
-
-   #######
-   ## call helper function to generate sufficient symmetric binomials
-   #######
 
    ## normals for a single paths
    funcWrapper = FunctionC12(funct)
@@ -215,10 +203,11 @@ if __name__ == '__main__':
    timestep = 0.001
    paths = 12
 
-   f_id = identityFunction()
+   f_id = genericMonomial(1.)  ### generic form of identity function
    f_exp = exponentialFunction()
-   f_sq = squareFunction()
+   f_sq = genericMonomial(2.)  ### generic form of square function
    f_ln = logarithmicFunction()
+   f_gm = genericMonomial(.1)
 
    vol = 0.2
 
@@ -228,4 +217,4 @@ if __name__ == '__main__':
    drift_1 = 0.0
    iPE = itoProcessExp(drift_1, vol, 1.)
 
-   plot_ito_process(max_time, timestep, paths, iPE, f_exp)
+   plot_ito_process(max_time, timestep, paths, iPE, f_sq)
