@@ -144,47 +144,42 @@ def plot_ito_process(_maxTime, _timestep, _number_paths, itoPr, funct):
    i = 0
    y = [0] * (size + 1)
    for k in range(_number_paths):
-       drivingProcess = 0
-       path = [1] * (size + 1)
-       for j in range(size + 1):
-           if (j == 0):
-               path[j] = funcWrapper.value(0, itoPr.initial_value)
-               drivingProcess = itoPr.initial_value
-               continue ## nothing
-           else:
+       drivingProcess = itoPr.initial_value
+       v = funcWrapper.value(0, itoPr.initial_value)
+       path = [v] * (size + 1)
+       for j in range(1, size + 1):
+           ########
+           ## the paths will be constructed through application of Ito's formula
+           ########
 
-               ########
-               ## the paths will be constructed through application of Ito's formula
-               ########
+           _x = drivingProcess
+           _u = x[j-1]
+           _du = _timestep
+           _a = itoPr.a(_u, _x)
+           _b = itoPr.b(_u, _x)
 
-               _x = drivingProcess
-               _u = x[j-1]
-               _du = _timestep
-               _a = itoPr.a(_u, _x)
-               _b = itoPr.b(_u, _x)
+           ####
+           ## -- path of actual F(t, X(t))
+           ## F(t + dt, X(t + dt)) = F(t, X(t)) + F_t(t,X(t)) a(t,x) dt
+           ##      + F_x(t, X(t)) a(t,x) dt + \frac{1}{2} F_xx(t,X(t)) b^2(t,x) dt
+           ##      + F_x(t, X(t)) b(t,x) dB(t)
+           ####
 
-               ####
-               ## -- path of actual F(t, X(t))
-               ## F(t + dt, X(t + dt)) = F(t, X(t)) + F_t(t,X(t)) a(t,x) dt
-               ##      + F_x(t, X(t)) a(t,x) dt + \frac{1}{2} F_xx(t,X(t)) b^2(t,x) dt
-               ##      + F_x(t, X(t)) b(t,x) dB(t)
-               ####
+           path[j] = ( path[j - 1] + funcWrapper.f_t(_u, _x ) * _du
+                       + _a * funcWrapper.f_x(_u, _x) * _du
+                       + 0.5 * _b * _b * funcWrapper.f_xx(_u, _x) * _du
+                       + _b * funcWrapper.f_x(_u, _x) * sample[i] )
 
-               path[j] = ( path[j - 1] + funcWrapper.f_t(_u, _x ) * _du
-                   + _a * funcWrapper.f_x(_u, _x) * _du
-                   + 0.5 * _b * _b * funcWrapper.f_xx(_u, _x) * _du
-                   + _b * funcWrapper.f_x(_u, _x) * sample[i] )
+           ####
+           ## -- underlying ito process
+           ## X(t + dt) = X(t) + a(t,x) dt + b(t,x) dB(t)
+           ####
 
-               ####
-               ## -- underlying ito process
-               ## X(t + dt) = X(t) + a(t,x) dt + b(t,x) dB(t)
-               ####
+           drivingProcess = drivingProcess + _a * _du + _b * sample[i]
 
-               drivingProcess = drivingProcess + _a * _du + _b * sample[i]
+           ### increment counter for samples
 
-               ### increment counter for samples
-
-               i = i + 1
+           i = i + 1
 
        paths[k] = path
 
