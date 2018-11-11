@@ -26,6 +26,8 @@ def bivariate_normal_scatter(mu_1, mu_2, sigma_1, sigma_2, rho):
     for k in range(n_plots):
         y[k] = [0.] * (size)
 
+    colors = ['blue', 'green', 'orange']
+
     mp = pu.PlotUtilities('Bivariate Normal Distribution with Varying Correlations'.format(rho), 'x', 'y')
 
     for k in range(size):
@@ -34,7 +36,7 @@ def bivariate_normal_scatter(mu_1, mu_2, sigma_1, sigma_2, rho):
             z = rho[m] * standard_normal_sample[k] + np.sqrt(1 - rho[m] * rho[m]) * standard_normal_sample[k + size]
             y[m][k] = sigma_2 * z + mu_2
 
-    mp.scatterPlot(x, y, rho)
+    mp.scatterPlot(x, y, rho, colors)
 
 
 if __name__ == '__main__':

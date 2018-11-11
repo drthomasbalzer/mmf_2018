@@ -57,7 +57,7 @@ class PlotUtilities():
         plt.show()
 
 
-    def scatterPlot(self, x_values, y_values, labels):
+    def scatterPlot(self, x_values, y_values, labels, colors):
 
         plt.xlabel(self.x_label)
         plt.ylabel(self.y_label)
@@ -65,7 +65,7 @@ class PlotUtilities():
 
         n_plots = len(y_values)
         for k in range(n_plots):
-            plt.scatter(x_values, y_values[k], label=labels[k])
+            plt.scatter(x_values, y_values[k], label=labels[k], color = colors[k])
 
         plt.legend(prop={'size': 9})
         plt.show()
