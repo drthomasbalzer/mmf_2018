@@ -6,6 +6,28 @@
 
 import matplotlib.pyplot as plt
 
+def min_max_axis(y):
+
+    t_min = 100
+    t_max = -100.
+
+    for k in range(len(y)):
+        t_min = min(t_min, min(y[k]))
+        t_max = max(t_max, max(y[k]))
+
+    if (t_min < 0):
+        t_min = t_min * 1.1
+    else:
+        t_min = t_min * 0.9
+
+    if (t_max < 0):
+        t_max = t_max * 0.9
+    else:
+        t_max = t_max * 1.1
+
+    return t_min, t_max
+
+
 class PlotUtilities():
 
     def __init__(self, title, x_label, y_label):
@@ -102,27 +124,41 @@ class PlotUtilities():
     ##
     ###############
 
+
+    def subPlots(self, x_ax, y_ax, arg, colors):
+
+        n_plots = len(y_ax)
+
+        t_min, t_max = min_max_axis(y_ax)
+
+        ########
+        ## some basic formatting
+        ########
+        plt.axis([min(x_ax), max(x_ax), t_min, t_max])
+
+        ########
+        ## actual plotting
+        ########
+
+        for k in range(n_plots):
+            plt.subplot(n_plots, 1, k+1)
+            if (k == 0):
+                plt.title(self.title)
+            elif (k == n_plots - 1):
+                plt.xlabel(self.x_label)
+            plt.ylabel(arg[k])
+            plt.plot(x_ax, y_ax[k], color=colors[k])
+
+        plt.show()
+
+
     def multiPlot(self, x_ax, y_ax, arg = ''):
 
         #######
         ## sizing of axis
         #######
         n_plots = len(y_ax)
-        t_min = 100
-        t_max = -100.
-        for k in range(n_plots):
-            t_min = min(t_min, min(y_ax[k]))
-            t_max = max(t_max, max(y_ax[k]))
-
-        if (t_min < 0):
-            t_min = t_min * 1.1
-        else:
-            t_min = t_min * 0.9
-
-        if (t_max < 0):
-            t_max = t_max * 0.9
-        else:
-            t_max = t_max * 1.1
+        t_min, t_max = min_max_axis(y_ax)
 
         ########
         ## some basic formatting
@@ -135,6 +171,7 @@ class PlotUtilities():
         ########
         ## actual plotting
         ########
+
         for k in range(n_plots):
             plt.plot(x_ax, y_ax[k], arg)
 
