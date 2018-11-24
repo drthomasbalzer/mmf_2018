@@ -55,10 +55,10 @@ def plot_bachelier_digital_option(_time, _timestep, _strike):
         path_digital_option_hedge[j] = path_digital_option_hedge[j-1] + sample[j] * hedge_proportion[j]
         path_digital_option[j] = 1 - dist.standard_normal_cdf((_strike - path_bm[j]) / _t_remain)
 
+    mp = pu.PlotUtilities("Paths of Digital Option Value", 'Time', "Option Value")
 
     trackHedgeOnly = True
     if (trackHedgeOnly):
-        mp = pu.PlotUtilities("Paths of Digital Option Value", 'Time', "Option Value")
         y = [0] * 2
         y[0] = path_digital_option
         y[1] = path_digital_option_hedge
